@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [showProfile, setShowProfile] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isOfflineModalOpen, setOfflineModalOpen] = useState(false);
 
   const filteredHistory = mockHistory.filter(item =>
     item.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -30,8 +31,13 @@ export default function Dashboard() {
   );
 
   const handleConsultationClick = (request: any) => {
-    setSelectedConsultation(request);
-    setModalOpen(true);
+    if (!isOnline) {
+      setSelectedConsultation(request);
+      setOfflineModalOpen(true);
+    } else {
+      setSelectedConsultation(request);
+      setModalOpen(true);
+    }
   };
 
   const handleConfirm = () => {
@@ -44,6 +50,16 @@ export default function Dashboard() {
   const handleClose = () => {
     setModalOpen(false);
     setSelectedConsultation(null);
+  };
+
+  const handleOfflineConfirm = () => {
+    toggleOnlineStatus();
+    setOfflineModalOpen(false);
+    setModalOpen(true);
+  };
+
+  const handleOfflineCancel = () => {
+    setOfflineModalOpen(false);
   };
 
   return (
@@ -122,10 +138,10 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Pending Consultations */}
-          <div className="health-card">
+          <div className={`health-card ${isOnline ? 'bg-teal-600' : 'bg-white'}`}>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Consultas Pendientes</h2>
-              <Clock className="h-5 w-5 text-teal-500" />
+              <h2 className={`text-xl font-semibold ${isOnline ? 'text-white' : 'text-gray-900'}`}>Consultas Pendientes</h2>
+              <Clock className={`h-5 w-5 ${isOnline ? 'text-white' : 'text-teal-500'}`} />
             </div>
             <div className="space-y-4">
               {mockRequests.map((request) => (
@@ -260,7 +276,21 @@ export default function Dashboard() {
               <p><strong>Diagnóstico:</strong> {selectedConsultation?.diagnosis}</p>
               <div className="flex justify-end mt-4">
                 <button className="mr-2 px-4 py-2 bg-gray-300 rounded" onClick={handleClose}>Cancelar</button>
-                <button className="px-4 py-2 bg-teal-600 text-white rounded" onClick={handleConfirm}>Entrar</button>
+                <button className="px-4 py-2 text-white rounded" style={{ backgroundColor: '#14B8A6' }} onClick={handleConfirm}>Entrar</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal de Offline */}
+        {isOfflineModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white rounded-lg p-6 max-w-sm w-full">
+              <h2 className="text-lg font-semibold mb-4">Modo Offline</h2>
+              <p>Estás actualmente en modo offline. ¿Deseas pasar a modo online?</p>
+              <div className="flex justify-end mt-4">
+                <button className="mr-2 px-4 py-2 bg-gray-300 rounded" onClick={handleOfflineCancel}>Cancelar</button>
+                <button className="px-4 py-2 text-white rounded" style={{ backgroundColor: '#14B8A6' }} onClick={handleOfflineConfirm}>Aceptar</button>
               </div>
             </div>
           </div>
