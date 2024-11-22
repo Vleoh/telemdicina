@@ -22,11 +22,29 @@ export default function Dashboard() {
   const [selectedConsultation, setSelectedConsultation] = useState<number | null>(null);
   const [showProfile, setShowProfile] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const filteredHistory = mockHistory.filter(item =>
     item.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.diagnosis.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleConsultationClick = (request: any) => {
+    setSelectedConsultation(request);
+    setModalOpen(true);
+  };
+
+  const handleConfirm = () => {
+    if (selectedConsultation) {
+      navigate(`/consultation/${selectedConsultation.id}`);
+    }
+    setModalOpen(false);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+    setSelectedConsultation(null);
+  };
 
   return (
     <div className="min-h-screen bg-health-pattern">
@@ -114,7 +132,7 @@ export default function Dashboard() {
                 <div
                   key={request.id}
                   className="relative bg-white rounded-lg p-4 hover:shadow-md transition-all duration-300 cursor-pointer border border-gray-100 hover:border-teal-200"
-                  onClick={() => navigate(`/consultation/${request.id}`)}
+                  onClick={() => handleConsultationClick(request)}
                 >
                   <div className="flex justify-between items-start">
                     <div>
@@ -231,6 +249,22 @@ export default function Dashboard() {
             </table>
           </div>
         </div>
+
+        {/* Modal de Confirmación */}
+        {isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white rounded-lg p-6 max-w-sm w-full">
+              <h2 className="text-lg font-semibold mb-4">Confirmar Videollamada</h2>
+              <p><strong>Paciente:</strong> {selectedConsultation?.patient}</p>
+              <p><strong>Hora:</strong> {selectedConsultation?.time}</p>
+              <p><strong>Diagnóstico:</strong> {selectedConsultation?.diagnosis}</p>
+              <div className="flex justify-end mt-4">
+                <button className="mr-2 px-4 py-2 bg-gray-300 rounded" onClick={handleClose}>Cancelar</button>
+                <button className="px-4 py-2 bg-teal-600 text-white rounded" onClick={handleConfirm}>Entrar</button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
