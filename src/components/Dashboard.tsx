@@ -11,26 +11,9 @@ const mockRequests = [
 ];
 
 const mockHistory = [
-  { 
-    id: 101, 
-    patient: "Carlos Ruiz", 
-    age: 52, 
-    date: "10/03/2024", 
-    diagnosis: "Hipertensión",
-    symptoms: "Dolor de cabeza, mareos",
-    prescription: "Losartán 50mg",
-    nextAppointment: "24/03/2024"
-  },
-  { 
-    id: 102, 
-    patient: "Laura Torres", 
-    age: 29, 
-    date: "09/03/2024", 
-    diagnosis: "Migraña",
-    symptoms: "Dolor de cabeza intenso, sensibilidad a la luz",
-    prescription: "Sumatriptán 50mg",
-    nextAppointment: "23/03/2024"
-  },
+  { id: 101, date: "10/03/2024", doctor: "Dr. Juan Pérez", patient: "Carlos Ruiz", diagnosis: "Hipertensión", prescription: "Losartán 50mg", symptoms: "Dolor de cabeza, mareos" },
+  { id: 102, date: "09/03/2024", doctor: "Dra. Ana López", patient: "Laura Torres", diagnosis: "Migraña", prescription: "Sumatriptán 50mg", symptoms: "Dolor de cabeza intenso, sensibilidad a la luz" },
+  // Agrega más datos de ejemplo según sea necesario
 ];
 
 export default function Dashboard() {
@@ -38,6 +21,12 @@ export default function Dashboard() {
   const { logout, isOnline, toggleOnlineStatus, doctorProfile } = useAuth();
   const [selectedConsultation, setSelectedConsultation] = useState<number | null>(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredHistory = mockHistory.filter(item =>
+    item.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.diagnosis.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-health-pattern">
@@ -194,6 +183,52 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Tabla Histórica */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Historial de Consultas</h2>
+          <input
+            type="text"
+            placeholder="Buscar por paciente o diagnóstico"
+            className="mb-4 p-2 border border-gray-300 rounded-md w-full md:w-1/2"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b">ID</th>
+                  <th className="py-2 px-4 border-b">Fecha</th>
+                  <th className="py-2 px-4 border-b">Doctor</th>
+                  <th className="py-2 px-4 border-b">Paciente</th>
+                  <th className="py-2 px-4 border-b">Diagnóstico</th>
+                  <th className="py-2 px-4 border-b">Receta</th>
+                  <th className="py-2 px-4 border-b">Síntomas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredHistory.length > 0 ? (
+                  filteredHistory.map(item => (
+                    <tr key={item.id} className="hover:bg-gray-100">
+                      <td className="py-2 px-4 border-b">{item.id}</td>
+                      <td className="py-2 px-4 border-b">{item.date}</td>
+                      <td className="py-2 px-4 border-b">{item.doctor}</td>
+                      <td className="py-2 px-4 border-b">{item.patient}</td>
+                      <td className="py-2 px-4 border-b">{item.diagnosis}</td>
+                      <td className="py-2 px-4 border-b">{item.prescription}</td>
+                      <td className="py-2 px-4 border-b">{item.symptoms}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="py-2 px-4 text-center">No se encontraron resultados</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
