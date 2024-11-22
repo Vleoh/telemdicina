@@ -67,7 +67,7 @@ export default function Dashboard() {
               {/* Online Status Toggle */}
               <div className="flex items-center">
                 <span className="text-sm font-medium text-gray-700 mr-2">
-                  {isOnline ? 'En línea' : 'Fuera de línea'}
+                  {isOnline ? 'Online' : 'Offline'}
                 </span>
                 <button
                   onClick={toggleOnlineStatus}
@@ -104,8 +104,7 @@ export default function Dashboard() {
                 onClick={() => logout()}
                 className="flex items-center text-gray-700 hover:text-gray-900"
               >
-                <LogOut className="h-5 w-5 mr-1" />
-                Cerrar Sesión
+                <LogOut className="h-7 w-7 mr-1" />
               </button>
             </div>
           </div>
