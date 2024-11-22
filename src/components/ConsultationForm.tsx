@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ClipboardList, Save, CheckCircle } from 'lucide-react';
+import Header from './Header'; // Importa el Header
 
 export default function ConsultationForm() {
   const { id } = useParams();
@@ -45,8 +46,9 @@ export default function ConsultationForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 ">
+    <Header showProfile={false} setShowProfile={() => {}} logout={() => { /* lógica de logout */ }} />
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="flex items-center mb-6">
             <ClipboardList className="h-6 w-6 text-indigo-600 mr-2" />
