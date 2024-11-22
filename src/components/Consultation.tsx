@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Video, Phone, MessageSquare, FileText } from 'lucide-react';
-import Header from './Header'; // Importa el Header
+import Header from './Header'; 
 export default function Consultation() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function Consultation() {
        <Header showProfile={false} setShowProfile={() => {}} logout={() => { /* lógica de logout */ }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {/* Video Call Header */}
+          {/* Video call header */}
           <div className="bg-indigo-600 p-4">
             <div className="flex justify-between items-center">
               <div className="text-white">
@@ -36,18 +36,18 @@ export default function Consultation() {
             </div>
           </div>
 
-          {/* Video Call Area (Simulated) */}
+          {/* Video call area  */}
           <div className="aspect-video bg-gray-900 relative">
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
                 <Video className="h-16 w-16 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400">Connecting to video call...</p>
+                <p className="text-gray-400">Conectando...</p>
               </div>
             </div>
-            {/* Patient Video Preview */}
+            {/* patient video preview */}
             <div className="absolute bottom-4 right-4 w-48 h-36 bg-gray-800 rounded-lg border-2 border-gray-700">
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-gray-500 text-sm">Your preview</p>
+                <p className="text-gray-500 text-sm">vista previa</p>
               </div>
             </div>
           </div>
@@ -56,13 +56,13 @@ export default function Consultation() {
           <div className="p-4 bg-gray-50 border-t">
             <div className="flex justify-center space-x-4">
               <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center">
-                End Call
+                Finalizar
               </button>
               <button 
                 onClick={() => navigate(`/consultation-form/${id}`)}
                 className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center"
               >
-                Complete Consultation
+                Completar Form
               </button>
             </div>
           </div>

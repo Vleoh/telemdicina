@@ -1,9 +1,9 @@
 import React from 'react';
-import { Stethoscope, Activity, Heart, Bell, LogOut } from 'lucide-react'; // Asegúrate de importar los íconos que necesites
-import { useAuth } from '../context/AuthContext'; // Asegúrate de importar el contexto de autenticación
+import { Stethoscope, Activity, Heart, Bell, LogOut } from 'lucide-react'; 
+import { useAuth } from '../context/AuthContext'; 
 
 const Header: React.FC<{ showProfile: boolean; setShowProfile: (show: boolean) => void; logout: () => void; }> = ({ showProfile, setShowProfile, logout }) => {
-  const { isOnline, toggleOnlineStatus, doctorProfile } = useAuth(); // Obtén el estado de conexión del doctor
+  const { isOnline, toggleOnlineStatus, doctorProfile } = useAuth(); 
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-100">
@@ -26,7 +26,7 @@ const Header: React.FC<{ showProfile: boolean; setShowProfile: (show: boolean) =
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            {/* Online Status Toggle */}
+            {/* Online status toggle */}
             <div className="flex items-center">
               <span className="text-sm font-medium text-gray-700 mr-2">
                 {isOnline ? 'Online' : 'Offline'}

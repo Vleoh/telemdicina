@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ClipboardList, Save, CheckCircle } from 'lucide-react';
-import Header from './Header'; // Importa el Header
+import Header from './Header'; 
 
 export default function ConsultationForm() {
   const { id } = useParams();
@@ -18,7 +18,7 @@ export default function ConsultationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuccess(true);
-    // Simulate saving data
+   
     await new Promise(resolve => setTimeout(resolve, 1500));
     navigate('/');
   };
@@ -30,7 +30,7 @@ export default function ConsultationForm() {
 
   if (showSuccess) {
     return (
-      <div className="fixed inset-0 bg-gray-50 flex items-center justify-center">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full mx-4 text-center">
           <div className="flex justify-center mb-4">
             <CheckCircle className="h-16 w-16 text-green-500" />

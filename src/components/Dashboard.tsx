@@ -13,7 +13,7 @@ const mockRequests = [
 const mockHistory = [
   { id: 101, date: "10/03/2024", doctor: "Dr. Juan Pérez", patient: "Carlos Ruiz", diagnosis: "Hipertensión", prescription: "Losartán 50mg", symptoms: "Dolor de cabeza, mareos" },
   { id: 102, date: "09/03/2024", doctor: "Dra. Ana López", patient: "Laura Torres", diagnosis: "Migraña", prescription: "Sumatriptán 50mg", symptoms: "Dolor de cabeza intenso, sensibilidad a la luz" },
-  // Agrega más datos de ejemplo según sea necesario
+  
 ];
 
 export default function Dashboard() {
@@ -87,7 +87,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              {/* Online Status Toggle */}
+              {/* Online statustoggle */}
               <div className="flex items-center">
                 <span className="text-sm font-medium text-gray-700 mr-2">
                   {isOnline ? 'Online' : 'Offline'}
@@ -134,10 +134,10 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Pending Consultations */}
+          {/* pending consultas */}
           <div className={`health-card ${isOnline ? 'bg-teal-600' : 'bg-white'}`}>
             <div className="flex items-center justify-between mb-6">
               <h2 className={`text-xl font-semibold ${isOnline ? 'text-white' : 'text-gray-900'}`}>Consultas Pendientes</h2>
@@ -168,7 +168,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Consultation History */}
+          {/* consultation history */}
           <div className="health-card">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold text-gray-900">Consultas Recientes</h2>
@@ -220,7 +220,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Tabla Histórica */}
+        {/* tabla histórica */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Historial de Consultas</h2>
           <input
@@ -266,7 +266,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Modal de Confirmación */}
+        {/* modal de confirmación */}
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white rounded-lg p-6 max-w-sm w-full">
@@ -282,7 +282,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* Modal de Offline */}
+        {/* Modal offline */}
         {isOfflineModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white rounded-lg p-6 max-w-sm w-full">
